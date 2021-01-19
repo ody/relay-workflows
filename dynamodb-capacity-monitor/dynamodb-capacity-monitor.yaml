@@ -19,12 +19,10 @@ triggers:
 steps:
 - name: monitor
   image: gcr.io/nebula-contrib/relay-aws-dynamodb-monitor
-  command: java
-  args:
-  - -jar
-  - /relay/aws-dynamodb-monitor.jar
+  env:
+    AWS_ACCESS_KEY_ID: !Secret awsAccessKeyId
+    AWS_SECRET_ACCESS_KEY: !Secret awsSecretAccessKey
   spec:
-    aws: !Connection { type: aws, name: aws-connection }
     ignore:
     - us-gov-east-1
     - us-gov-west-1
